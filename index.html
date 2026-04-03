@@ -536,53 +536,63 @@ async function genLink() {
   
   btn.disabled = true; 
   result.style.display = 'none'; 
-  status.innerHTML = `<div class="pill pload"><div class="dot blink"></div>Uploading to Paste.gg...</div>`;
+  status.innerHTML = `<div class="pill pload"><div class="dot blink"></div>Bypassing CORS...</div>`;
   
-  const themeData = build();
-  const payload = {
-    name: themeData.name,
-    description: "Kettu Theme Export",
-    visibility: "public",
-    files: [{
-      name: "theme.json",
-      content: {
-        format: "text",
-        value: JSON.stringify(themeData, null, 2)
-      }
-    }]
-  };
+  const themeJson = js();
+  
+  // Corrected proxy call with the ?url= parameter
+  const proxyPrefix = "https://corsproxy.io/?url=";
+  const targetUrl = "https://api.jsonbin.io/v3/b";
 
   try {
-    const res = await fetch('https://api.paste.gg/v1/pastes', {
+    const res = await fetch(proxyPrefix + encodeURIComponent(targetUrl), {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Bin-Private': 'false' // Required for public access
+      },
+      body: themeJson
     });
-    
-    if(!res.ok) throw new Error('Server returned ' + res.status);
-    
+
     const data = await res.json();
-    // Generate the RAW link so Kettu can actually read the JSON directly
-    const rawUrl = `https://paste.gg/p/anonymous/${data.result.id}/files/${data.result.files[0].id}/raw`;
-    
-    status.innerHTML = `<div class="pill pok"><div class="dot"></div>Success!</div>`;
+
+    if (!res.ok) {
+      console.error("Server Response:", data);
+      throw new Error('Upload failed');
+    }
+
+    // This URL provides the raw JSON directly to the Kettu app
+    const rawUrl = `https://api.jsonbin.io/v3/b/${data.metadata.id}?meta=false`;
+
+    status.innerHTML = `<div class="pill pok"><div class="dot"></div>Link Created!</div>`;
     result.style.display = 'flex';
     result.innerHTML = `
       <div class="lbk">
-        <div class="link-lbl">Direct JSON URL (Paste into App)</div>
+        <div class="link-lbl">Direct URL (Paste into Kettu)</div>
         <div class="link-row">
           <div class="link-url">${rawUrl}</div>
           <button class="btn btn-p btn-sm" onclick="cpt('${rawUrl}',this)">Copy</button>
         </div>
-      </div>`;
-  } catch(e) {
-    status.innerHTML = `<div class="pill perr"><div class="dot"></div>Server Error (500)</div>`;
+      </div>
+      <div class="info">Open Kettu → Settings → Themes → Tap <b>+</b> and paste this URL!</div>`;
+      
+  } catch (e) {
+    console.error("CORS Proxy Error:", e);
+    status.innerHTML = `<div class="pill perr"><div class="dot"></div>CORS Blocked</div>`;
     result.style.display = 'flex';
-    result.innerHTML = `<div class="warn">The external hosting service is down. Please <b>Download .json</b> and upload it manually to <a href="https://gist.github.com" target="_blank" style="color:inherit">GitHub Gist</a>.</div>`;
-  } finally { 
-    btn.disabled = false; 
+    result.innerHTML = `
+      <div class="warn">
+        The proxy was blocked. <br><br>
+        <b>Manual Fix:</b><br>
+        1. <b>Download</b> the .json below.<br>
+        2. Upload it to <b>GitHub Gist</b>.<br>
+        3. Click <b>"Raw"</b> and use that URL in the app.
+      </div>`;
+  } finally {
+    btn.disabled = false;
   }
 }
+
 
 
 function cpt(text, btn) { 
