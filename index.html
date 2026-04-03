@@ -536,45 +536,54 @@ async function genLink() {
   
   btn.disabled = true; 
   result.style.display = 'none'; 
-  result.innerHTML = '';
-  status.innerHTML = `<div class="pill pload"><div class="dot blink"></div>Generating Link...</div>`;
+  status.innerHTML = `<div class="pill pload"><div class="dot blink"></div>Uploading to Paste.gg...</div>`;
   
+  const themeData = build();
+  const payload = {
+    name: themeData.name,
+    description: "Kettu Theme Export",
+    visibility: "public",
+    files: [{
+      name: "theme.json",
+      content: {
+        format: "text",
+        value: JSON.stringify(themeData, null, 2)
+      }
+    }]
+  };
+
   try {
-    // Switched to npoint.io, which is much more reliable for CORS-free JSON pasting
-    const res = await fetch('https://api.npoint.io/', {
+    const res = await fetch('https://api.paste.gg/v1/pastes', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: js()
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
     });
     
-    if(!res.ok) throw new Error('HTTP ' + res.status);
+    if(!res.ok) throw new Error('Server returned ' + res.status);
     
     const data = await res.json();
-    if(!data.id) throw new Error('No ID returned');
+    // Generate the RAW link so Kettu can actually read the JSON directly
+    const rawUrl = `https://paste.gg/p/anonymous/${data.result.id}/files/${data.result.files[0].id}/raw`;
     
-    // Npoint returns a JSON link in the format https://api.npoint.io/{id}
-    const url = 'https://api.npoint.io/' + data.id;
-    
-    status.innerHTML = `<div class="pill pok"><div class="dot"></div>Ready!</div>`;
+    status.innerHTML = `<div class="pill pok"><div class="dot"></div>Success!</div>`;
     result.style.display = 'flex';
     result.innerHTML = `
       <div class="lbk">
-        <div class="link-lbl">Paste this exact URL into the app</div>
+        <div class="link-lbl">Direct JSON URL (Paste into App)</div>
         <div class="link-row">
-          <div class="link-url" id="final-url">${url}</div>
-          <button class="btn btn-p btn-sm" onclick="cpt('${url}',this)">Copy URL</button>
+          <div class="link-url">${rawUrl}</div>
+          <button class="btn btn-p btn-sm" onclick="cpt('${rawUrl}',this)">Copy</button>
         </div>
-      </div>
-      <div class="info"><strong>Installation:</strong> Open Kettu → Settings → Themes → tap <strong>+</strong> → paste the URL above!</div>`;
+      </div>`;
   } catch(e) {
-    status.innerHTML = `<div class="pill perr"><div class="dot"></div>Generation Failed</div>`;
+    status.innerHTML = `<div class="pill perr"><div class="dot"></div>Server Error (500)</div>`;
     result.style.display = 'flex';
-    result.innerHTML = `<div class="warn">Upload failed due to a network error. Try downloading the file instead and hosting it on GitHub Gist or jsonbin.</div>`;
-    console.error(e);
+    result.innerHTML = `<div class="warn">The external hosting service is down. Please <b>Download .json</b> and upload it manually to <a href="https://gist.github.com" target="_blank" style="color:inherit">GitHub Gist</a>.</div>`;
   } finally { 
     btn.disabled = false; 
   }
 }
+
 
 function cpt(text, btn) { 
   navigator.clipboard.writeText(text); 
