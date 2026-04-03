@@ -538,56 +538,64 @@ async function genLink() {
   result.style.display = 'none'; 
   status.innerHTML = `<div class="pill pload"><div class="dot blink"></div>Uploading via CORSfix...</div>`;
   
-  const themeJson = js(); 
-  const fileName = (document.getElementById('m-name')?.value || 'kettu-theme') + '.json';
+  const themeJson = js(); // Assuming this is your JSON string generator
+  const fileName = (document.getElementById('m-name')?.value || 'theme') + '.json';
 
-  // Create the binary blob file.io expects
+  // 1. Create the binary blob file.io expects (string($binary) in spec)
   const blob = new Blob([themeJson], { type: 'application/json' });
+  
+  // 2. Build the FormData according to the POST / schema
   const formData = new FormData();
   formData.append('file', blob, fileName);
-  formData.append('expires', '1w'); 
+  formData.append('expires', '1w'); // 1 week (matches the TimePeriod pattern)
+  formData.append('autoDelete', 'true');
 
   try {
-    // Using your new proxy syntax
+    // 3. Use your custom proxy syntax
     const res = await fetch("https://proxy.corsfix.com/?https://file.io", {
       method: "POST",
-      body: formData // Browser handles headers automatically for FormData
+      body: formData
+      // IMPORTANT: Do NOT set Content-Type header manually. 
+      // The browser must set it to include the 'boundary' for multipart to work.
     });
 
-    if (!res.ok) throw new Error(`Server Error: ${res.status}`);
+    if (!res.ok) throw new Error(`Server returned ${res.status}`);
 
     const data = await res.json();
 
     if (data.success) {
       const rawUrl = data.link;
-      status.innerHTML = `<div class="pill pok"><div class="dot"></div>Success!</div>`;
+      status.innerHTML = `<div class="pill pok"><div class="dot"></div>Upload Success!</div>`;
       result.style.display = 'flex';
       result.innerHTML = `
         <div class="lbk">
-          <div class="link-lbl">Direct Theme URL</div>
+          <div class="link-lbl">Direct JSON Link</div>
           <div class="link-row">
             <div class="link-url">${rawUrl}</div>
             <button class="btn btn-p btn-sm" onclick="cpt('${rawUrl}',this)">Copy</button>
           </div>
         </div>
-        <div class="info">Paste this into Kettu. This link expires in 7 days.</div>`;
+        <div class="info">Paste this link into Kettu. It will expire in 7 days.</div>`;
     } else {
       throw new Error(data.message || 'Upload failed');
     }
       
   } catch (e) {
-    console.error("CORSfix Upload Error:", e);
+    console.error("CORSfix/File.io Error:", e);
     status.innerHTML = `<div class="pill perr"><div class="dot"></div>Upload Blocked</div>`;
     result.style.display = 'flex';
     result.innerHTML = `
       <div class="warn">
-        The proxy or file.io rejected the request.<br><br>
-        <b>Quick Fix:</b> Click <b>Download .json</b> and upload it to <a href="https://gist.github.com" target="_blank" style="color:#5865f2; font-weight:bold;">GitHub Gist</a> for a permanent link.
+        <b>Method Not Allowed (405):</b> The proxy or target rejected the POST.<br><br>
+        1. <b>Download .json</b> below.<br>
+        2. Upload to a <a href="https://gist.github.com" target="_blank" style="color:white;text-decoration:underline;">GitHub Gist</a>.<br>
+        3. Use the <b>Raw</b> link.
       </div>`;
   } finally {
     btn.disabled = false;
   }
 }
+
 
 function cpt(text, btn) { 
   navigator.clipboard.writeText(text); 
