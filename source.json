@@ -1,0 +1,23 @@
+{
+  "name": "Radium",
+  "identifier": "com.AgainstGravity.RecRoom",
+  "subtitle": "Radium Builds",
+  "description": "Custom builds for Radium iOS.",
+  "iconURL": "https://play-lh.googleusercontent.com/UuVPdJLY-dQwM-k2H5IZXlL0CBUVauVOHblIMeDqIARlVBTSNGRHIAjWmJtbE25gUQ=s188",
+  "headerURL": "https://play-lh.googleusercontent.com/UuVPdJLY-dQwM-k2H5IZXlL0CBUVauVOHblIMeDqIARlVBTSNGRHIAjWmJtbE25gUQ=s188",
+  "apps": [
+    {
+      "name": "Radium",
+      "bundleIdentifier": "com.AgainstGravity.RecRoom",
+      "developerName": "Radium Team",
+      "version": "2025.10.27",
+      "versionDate": "2025-10-27T00:00:00Z",
+      "versionDescription": "Build Radium_iOS_20251027_iCbQFJ",
+      "downloadURL": "https://radium-builds.stuartt.ca/ios/Radium_iOS_20251027_iCbQFJ.ipa",
+      "localizedDescription": "Radium iOS build from the official builds server.",
+      "iconURL": "https://play-lh.googleusercontent.com/UuVPdJLY-dQwM-k2H5IZXlL0CBUVauVOHblIMeDqIARlVBTSNGRHIAjWmJtbE25gUQ=s188",
+      "size": 0
+    }
+  ],
+  "news": []
+}
