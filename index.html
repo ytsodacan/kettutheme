@@ -74,9 +74,8 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--t);
 .crow-inp:focus { border-color: var(--a); }
 
 /* Preview */
-.discord-mock { border-radius: var(--rs); overflow: hidden; border: 1px solid rgba(0,0,0,0.6); box-shadow: 0 8px 32px rgba(0,0,0,0.3); font-family: 'Inter', system-ui, sans-serif; position: relative; }
-.dc-bg-layer { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0.4; pointer-events: none; z-index: 0; }
-.dc-layout { display: flex; height: 420px; position: relative; z-index: 1; }
+.discord-mock { border-radius: var(--rs); overflow: hidden; border: 1px solid rgba(0,0,0,0.6); box-shadow: 0 8px 32px rgba(0,0,0,0.3); font-family: 'Inter', system-ui, sans-serif; }
+.dc-layout { display: flex; height: 420px; }
 .dc-left { width: 220px; flex-shrink: 0; display: flex; flex-direction: column; overflow: hidden; }
 .dc-srv { padding: 16px 14px; font-size: 14px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.2); box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
 .dc-ch-list { padding: 10px 8px; display: flex; flex-direction: column; gap: 2px; }
@@ -95,33 +94,40 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--t);
 .dc-inp-wrap { padding: 0 16px 16px; }
 .dc-inp { border-radius: 8px; padding: 12px 14px; font-size: 13.5px; font-weight: 400; }
 
-/* JSON */
+/* JSON Styling */
 .json-toolbar { display: flex; align-items: center; gap: 10px; padding: 12px 18px; background: var(--s2); border-bottom: 1px solid var(--b); }
 .json-box { background: var(--bg); padding: 16px 18px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t2); line-height: 1.6; overflow: auto; max-height: 540px; white-space: pre; }
-.jk { color: #a27dff; font-weight: 500; } .js { color: #7ec69e; } .jn { color: #ffd700; } .jb { color: #ff9f0a; } .j0 { color: var(--t3); }
+.jk { color: #a27dff; font-weight: 500; } 
+.js { color: #7ec69e; } 
+.jn { color: #ffd700; } 
+.jb { color: #ff9f0a; } 
+.j0 { color: var(--t3); }
 
 /* Buttons */
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 18px; border-radius: var(--rs); font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; border: none; white-space: nowrap; }
 .btn:active:not(:disabled) { transform: scale(0.97); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .btn-p { background: var(--a); color: #fff; box-shadow: 0 4px 16px var(--glow); }
 .btn-p:hover:not(:disabled) { background: var(--a2); box-shadow: 0 6px 20px rgba(123, 137, 255, 0.4); }
 .btn-g { background: var(--s2); color: var(--t); border: 1px solid var(--b2); }
 .btn-g:hover:not(:disabled) { background: var(--s3); border-color: var(--a); }
+.btn-sm { padding: 6px 12px; font-size: 12px; }
 
-/* Status & Pills */
+/* Export */
+.ex-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+.link-row { display: flex; align-items: center; gap: 10px; background: var(--s2); border: 1px solid var(--b2); border-radius: var(--rs); padding: 8px 8px 8px 14px; }
+.link-url { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--a2); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; user-select: all; }
+.pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 99px; font-size: 13px; font-weight: 600; }
 .pload { background: rgba(255,214,10,0.1); color: #ffd60a; border: 1px solid rgba(255,214,10,0.2); }
 .pok { background: rgba(47,209,88,0.12); color: #2fd158; border: 1px solid rgba(47,209,88,0.2); }
-.perr { background: rgba(255,68,66,0.12); color: #ff443a; border: 1px solid rgba(255,68,66,0.2); }
-.pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 99px; font-size: 13px; font-weight: 600; }
-.dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
 .blink { animation: blink 1s infinite; }
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-.info { background: rgba(88,101,242,0.1); border: 1px solid rgba(88,101,242,0.25); border-radius: var(--rs); padding: 12px 16px; font-size: 13px; color: var(--a2); margin-top: 12px; }
-.warn { background: rgba(255,214,10,0.08); border: 1px solid rgba(255,214,10,0.2); border-radius: var(--rs); padding: 12px 16px; font-size: 13px; color: #ffd60a; }
-
+.divider { height: 1px; background: var(--b); margin: 20px 0; }
+.step { display: flex; gap: 14px; font-size: 14px; color: var(--t2); align-items: flex-start; margin-bottom: 12px; }
+.snum { width: 24px; height: 24px; border-radius: 50%; background: var(--s2); border: 1px solid var(--b2); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; color: var(--t); }
 .pmt { display: flex; gap: 6px; margin-bottom: 12px; background: rgba(0,0,0,0.2); padding: 4px; border-radius: 8px; border: 1px solid var(--b); }
-.pmb { flex: 1; padding: 6px; background: transparent; border: none; border-radius: 6px; font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; color: var(--t2); cursor: pointer; transition: all 0.2s; text-align: center; }
-.pmb.on { background: var(--s3); color: var(--t); }
+.pmb { flex: 1; padding: 6px; background: transparent; border: 1px solid transparent; border-radius: 6px; font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; color: var(--t2); cursor: pointer; transition: all 0.2s; text-align: center; }
+.pmb.on { background: var(--s3); color: var(--t); border-color: var(--b2); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
 </style>
 </head>
 <body>
@@ -131,45 +137,39 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--t);
   <div class="hdr-logo">🪄</div>
   <div>
     <div class="hdr-title">Kettu Theme Maker</div>
-    <div class="hdr-sub">Discord mobile mod (Kettu / Bunny) generator — Plus Enabled</div>
+    <div class="hdr-sub">Discord mobile mod (Kettu / Bunny / Vendetta) generator — Spec v2</div>
   </div>
-  <div class="hdr-chip">R2 Cloud Active</div>
+  <div class="hdr-chip">JSON Theme</div>
 </div>
 
 <div class="tabs">
   <button class="tab on" onclick="go('design',this)">🎨 Design</button>
   <button class="tab" onclick="go('json',this)">{} Source</button>
-  <button class="tab" onclick="go('export',this)">🔗 Export</button>
+  <button class="tab" onclick="go('export',this)">🔗 Export & Install</button>
 </div>
 
 <div id="p-design" class="panel on">
   <div class="grid">
     <div>
       <div class="card">
-        <div class="ch"><div class="ch-dot"></div><div class="ch-title">Theme Details</div></div>
+        <div class="ch"><div class="ch-dot"></div><div class="ch-title">Theme Info</div></div>
         <div class="cb">
-          <div class="field"><label class="lbl">Theme Name</label><input class="inp" id="m-name" placeholder="E.g. Cyberpunk Blue" oninput="r()"/></div>
+          <div class="field"><label class="lbl">Theme Name</label><input class="inp" id="m-name" placeholder="E.g. Midnight Eclipse" oninput="r()"/></div>
           <div class="r2">
             <div class="field"><label class="lbl">Author</label><input class="inp" id="m-author" placeholder="yourname" oninput="r()"/></div>
-            <div class="field"><label class="lbl">Spec</label>
+            <div class="field"><label class="lbl">Spec Version</label>
               <select class="inp" id="m-spec" onchange="r()">
-                <option value="2">v2 (Bunny)</option>
-                <option value="1">v1 (Legacy)</option>
+                <option value="2">2 (Bunny/Kettu)</option>
+                <option value="1">1 (Legacy)</option>
               </select>
             </div>
           </div>
-          <div class="field">
-            <label class="lbl">Background Image URL <span style="color:var(--a2)">(Kettu Plus)</span></label>
-            <input class="inp" id="m-bg-url" placeholder="https://i.imgur.com/image.jpg" oninput="r()"/>
-          </div>
         </div>
       </div>
-
       <div class="card">
-        <div class="ch"><div class="ch-dot" style="background:#5865f2"></div><div class="ch-title">Surfaces</div></div>
+        <div class="ch"><div class="ch-dot" style="background:#5865f2"></div><div class="ch-title">Backgrounds</div></div>
         <div class="cb"><div class="cr" id="cr-bg"></div></div>
       </div>
-
       <div class="card">
         <div class="ch"><div class="ch-dot" style="background:#b5bac1"></div><div class="ch-title">Typography</div></div>
         <div class="cb"><div class="cr" id="cr-text"></div></div>
@@ -185,39 +185,28 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--t);
             <div class="pmb" onclick="setMode('light',this)">Light</div>
           </div>
           <div id="discord-preview" class="discord-mock">
-            <div id="pv-bg-layer" class="dc-bg-layer"></div>
-            
             <div class="dc-layout">
               <div class="dc-left" id="pv-left">
-                <div class="dc-srv" id="pv-srv">Kettu Plus Server</div>
+                <div class="dc-srv" id="pv-srv">My Server ▾</div>
                 <div class="dc-ch-list">
                   <div class="dc-cat" id="pv-cat">Text Channels</div>
-                  <div class="dc-ch" id="pv-ch0" style="background:rgba(255,255,255,0.1)"><span class="dc-hash">#</span><span style="color:white">general</span></div>
-                  <div class="dc-ch"><span class="dc-hash">#</span> testing</div>
+                  <div class="dc-ch" id="pv-ch0"><span class="dc-hash">#</span><span id="pv-ch0t">general</span></div>
                 </div>
               </div>
-              <div class="dc-main">
-                <div class="dc-chat-hdr" id="pv-chdr"># general</div>
+              <div class="dc-main" id="pv-main">
+                <div class="dc-chat-hdr" id="pv-chdr"><span class="dc-hash">#</span> general</div>
                 <div class="dc-body">
-                  <div class="dc-msg">
-                    <div class="dc-av" id="pv-av1">🦊</div>
-                    <div class="dc-mc">
-                      <div class="dc-mauth" id="pv-a1">Developer</div>
-                      <div class="dc-mtext" id="pv-m1">Welcome to Kettu Plus.</div>
-                    </div>
-                  </div>
+                  <div class="dc-msg"><div class="dc-av" id="pv-av1">🦊</div><div class="dc-mc"><div class="dc-mauth" id="pv-a1">Kettu</div><div class="dc-mtext" id="pv-m1">this looks 🔥</div></div></div>
+                  <div class="dc-msg"><div class="dc-av" id="pv-av2">🌸</div><div class="dc-mc"><div class="dc-mauth" id="pv-a2">User</div><div class="dc-mtext" id="pv-m2">Check <span id="pv-link">this link</span></div></div></div>
                 </div>
-                <div class="dc-inp-wrap">
-                  <div class="dc-inp" id="pv-inp">Message #general</div>
-                </div>
+                <div class="dc-inp-wrap"><div class="dc-inp" id="pv-inp">Message #general</div></div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
       <div class="card">
-        <div class="ch"><div class="ch-dot" style="background:#57f287"></div><div class="ch-title">Interaction</div></div>
+        <div class="ch"><div class="ch-dot" style="background:#57f287"></div><div class="ch-title">Interactive</div></div>
         <div class="cb"><div class="cr" id="cr-int"></div></div>
       </div>
     </div>
@@ -227,8 +216,9 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--t);
 <div id="p-json" class="panel">
   <div class="card">
     <div class="json-toolbar">
-      <span style="font-weight:700">Source Code</span>
-      <button class="btn btn-g btn-sm" style="margin-left:auto" onclick="copyJSON()">Copy</button>
+      <span style="font-size:14px;font-weight:700">Code</span>
+      <span id="json-size" style="margin-left:auto;font-family:monospace"></span>
+      <button class="btn btn-g btn-sm" onclick="copyJSON()"><span id="cp-lbl">Copy</span></button>
     </div>
     <div class="json-box" id="json-out"></div>
   </div>
@@ -236,14 +226,18 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--t);
 
 <div id="p-export" class="panel">
   <div class="card">
-    <div class="ch"><div class="ch-dot" style="background:#a27dff"></div><div class="ch-title">Finalize</div></div>
+    <div class="ch"><div class="ch-dot" style="background:#a27dff"></div><div class="ch-title">Export</div></div>
     <div class="cb">
-      <div style="display:flex; gap:12px; margin-bottom:20px;">
+      <div class="ex-row">
         <button class="btn btn-p" id="gen-btn" onclick="genLink()">☁ Generate Cloud Link</button>
         <button class="btn btn-g" onclick="dlJSON()">⬇ Download .json</button>
+        <div id="gen-status"></div>
       </div>
-      <div id="gen-status"></div>
-      <div id="gen-result" style="display:none; margin-top:12px;"></div>
+      <div id="gen-result" style="display:none;flex-direction:column;gap:12px;margin-top:10px;"></div>
+      <div class="divider"></div>
+      <div class="step"><div class="snum">1</div><div>Host JSON on a public URL.</div></div>
+      <div class="step"><div class="snum">2</div><div>Go to Discord Settings → Themes.</div></div>
+      <div class="step"><div class="snum">3</div><div>Paste URL and apply!</div></div>
     </div>
   </div>
 </div>
@@ -253,16 +247,17 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--t);
 <script>
 const GROUPS = {
   bg: [
-    { id: 'bg_pri', name: 'Background Primary', dark: '#313338', light: '#ffffff', sem: ['BACKGROUND_PRIMARY', 'CHAT_BACKGROUND'] },
-    { id: 'bg_sec', name: 'Sidebar / Panels', dark: '#2b2d31', light: '#f2f3f5', sem: ['BACKGROUND_SECONDARY'] },
-    { id: 'bg_inp', name: 'Text Input', dark: '#383a40', light: '#ebedef', sem: ['INPUT_BACKGROUND'] }
+    { id: 'bg_pri', name: 'Primary Background', dark: '#313338', light: '#ffffff', sem: ['BACKGROUND_PRIMARY', 'CHAT_BACKGROUND'], raw: { PRIMARY_700: '' } },
+    { id: 'bg_sec', name: 'Secondary / Sidebar', dark: '#2b2d31', light: '#f2f3f5', sem: ['BACKGROUND_SECONDARY', 'BACKGROUND_TERTIARY'], raw: { PRIMARY_630: '' } },
+    { id: 'bg_inp', name: 'Input Background', dark: '#383a40', light: '#ebedef', sem: ['INPUT_BACKGROUND'], raw: {} }
   ],
   text: [
-    { id: 'tx_norm', name: 'Normal Text', dark: '#dbdee1', light: '#2e3338', sem: ['TEXT_NORMAL'] },
-    { id: 'tx_hdr1', name: 'Header Text', dark: '#f2f3f5', light: '#060607', sem: ['HEADER_PRIMARY'] }
+    { id: 'tx_norm', name: 'Normal Text', dark: '#dbdee1', light: '#2e3338', sem: ['TEXT_NORMAL'], raw: { PRIMARY_100: '' } },
+    { id: 'tx_mute', name: 'Muted Text', dark: '#80848e', light: '#5c5e66', sem: ['TEXT_MUTED'], raw: { PRIMARY_400: '' } },
+    { id: 'tx_link', name: 'Link Color', dark: '#00a8fc', light: '#0068e0', sem: ['TEXT_LINK'], raw: {} }
   ],
   int: [
-    { id: 'br_main', name: 'Brand Accent', dark: '#5865f2', light: '#5865f2', sem: ['BACKGROUND_ACCENT'], raw: { BRAND_500: '', BLUE_400: '' } }
+    { id: 'br_main', name: 'Brand / Accent', dark: '#5865f2', light: '#5865f2', sem: ['BACKGROUND_ACCENT'], raw: { BRAND_500: '' } }
   ]
 };
 
@@ -279,65 +274,43 @@ function renderGroup(gid, elid) {
         <input type="color" value="${vals[c.id][mode]}" oninput="sc('${c.id}',this.value)" /> 
       </div> 
       <div class="crow-name">${c.name}</div> 
-      <input class="crow-inp" id="ci-${c.id}" value="${vals[c.id][mode]}" maxlength="7" oninput="sc('${c.id}',this.value,true)" /> 
+      <input class="crow-inp" id="ci-${c.id}" value="${vals[c.id][mode]}" oninput="sc('${c.id}',this.value,true)" /> 
     </div>`).join('');
 }
 
-function renderAll() { renderGroup('bg', 'cr-bg'); renderGroup('text', 'cr-text'); renderGroup('int', 'cr-int'); }
+function renderAll() { for(let g in GROUPS) renderGroup(g, 'cr-'+g); }
 
-function sc(id, hex, fromText=false) {
-  if (hex.length === 7) {
-    vals[id][mode] = hex;
-    const sw = document.getElementById('sw-'+id); if(sw) sw.style.background = hex;
-    if(!fromText) { document.getElementById('ci-'+id).value = hex; }
-    updatePreview(); r();
-  }
+function sc(id, hex, txt=false) {
+  vals[id][mode] = hex;
+  document.getElementById('sw-'+id).style.background = hex;
+  if(!txt) document.getElementById('ci-'+id).value = hex;
+  updatePreview(); r();
+}
+
+function setMode(m, btn) {
+  mode = m;
+  document.querySelectorAll('.pmb').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderAll(); updatePreview();
 }
 
 function build() {
-  const semanticColors = {};
-  const rawColors = {};
+  const name = document.getElementById('m-name').value || 'My Theme';
+  const author = document.getElementById('m-author').value || 'User';
+  const semanticColors = {}; const rawColors = {};
   ALL.forEach(c => {
-    c.sem?.forEach(k => { semanticColors[k] = [vals[c.id].dark, vals[c.id].light]; });
-    if(c.raw) Object.keys(c.raw).forEach(k => { rawColors[k] = vals[c.id].dark; });
+    c.sem.forEach(k => { semanticColors[k] = [vals[c.id].dark, vals[c.id].light]; });
+    Object.keys(c.raw).forEach(k => { rawColors[k] = vals[c.id].dark; });
   });
-
-  return {
-    name: document.getElementById('m-name').value || "Unnamed Theme",
-    authors: [{ name: document.getElementById('m-author').value || "Unknown" }],
-    spec: parseInt(document.getElementById('m-spec').value),
-    semanticColors,
-    rawColors,
-    // KETTU PLUS CUSTOM DATA
-    kettu_plus: {
-      bg_url: document.getElementById('m-bg-url').value || null,
-      bg_opacity: 0.4,
-      blur: 10
-    }
-  };
+  return { name, authors: [{name: author}], semanticColors, rawColors, spec: 2 };
 }
-
-function js() { return JSON.stringify(build(), null, 2); }
 
 function updatePreview() {
   const g = id => vals[id][mode];
-  const bgImg = document.getElementById('m-bg-url').value;
-  
-  const pvBg = document.getElementById('pv-bg-layer');
-  if(bgImg) {
-    pvBg.style.backgroundImage = `url('${bgImg}')`;
-    pvBg.style.display = 'block';
-  } else {
-    pvBg.style.display = 'none';
-  }
-
   document.getElementById('discord-preview').style.background = g('bg_pri');
   document.getElementById('pv-left').style.background = g('bg_sec');
-  document.getElementById('pv-srv').style.color = g('tx_hdr1');
-  document.getElementById('pv-chdr').style.color = g('tx_hdr1');
-  document.getElementById('pv-m1').style.color = g('tx_norm');
-  document.getElementById('pv-a1').style.color = g('br_main');
   document.getElementById('pv-av1').style.background = g('br_main');
+  document.getElementById('pv-link').style.color = g('tx_link');
   document.getElementById('pv-inp').style.background = g('bg_inp');
 }
 
@@ -348,50 +321,41 @@ function go(name, btn) {
   btn.classList.add('on');
 }
 
-function r() { document.getElementById('json-out').innerText = js(); updatePreview(); }
-
-function setMode(m, btn) {
-  mode = m;
-  document.querySelectorAll('.pmb').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  renderAll(); updatePreview();
+function r() {
+  const j = JSON.stringify(build(), null, 2);
+  document.getElementById('json-out').textContent = j;
+  document.getElementById('json-size').textContent = j.length + ' B';
 }
 
-// EXPORT FUNCTIONS
-function copyJSON() { navigator.clipboard.writeText(js()); alert("JSON Copied!"); }
+function copyJSON() {
+  navigator.clipboard.writeText(JSON.stringify(build()));
+  document.getElementById('cp-lbl').textContent = '✓';
+  setTimeout(() => document.getElementById('cp-lbl').textContent = 'Copy', 1000);
+}
 
 function dlJSON() {
-  const blob = new Blob([js()], {type: 'application/json'});
-  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-  a.download = "theme.json"; a.click();
+  const blob = new Blob([JSON.stringify(build())], {type: 'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'theme.json'; a.click();
 }
 
 async function genLink() {
+  const btn = document.getElementById('gen-btn');
   const status = document.getElementById('gen-status');
   const result = document.getElementById('gen-result');
-  const workerUrl = "https://json.ytsodacan.workers.dev";
-
-  status.innerHTML = `<div class="pill pload"><div class="dot blink"></div>Syncing to R2...</div>`;
-  
+  btn.disabled = true;
+  status.innerHTML = `<div class="pill pload"><div class="dot blink"></div>Uploading...</div>`;
   try {
-    const response = await fetch(workerUrl, { method: "POST", body: js() });
-    const data = await response.json();
-    const finalUrl = `${workerUrl}/${data.id}`;
-
-    status.innerHTML = `<div class="pill pok"><div class="dot"></div>Link Created</div>`;
-    result.style.display = 'block';
-    result.innerHTML = `
-      <div class="link-row">
-        <div class="link-url">${finalUrl}</div>
-        <button class="btn btn-p btn-sm" onclick="navigator.clipboard.writeText('${finalUrl}')">Copy</button>
-      </div>
-      <div class="info">Expires in 5 minutes!</div>`;
-  } catch (e) {
-    status.innerHTML = `<div class="pill perr"><div class="dot"></div>Cloud Error</div>`;
-  }
+    const res = await fetch("https://json.ytsodacan.workers.dev", { method: "POST", body: JSON.stringify(build()) });
+    const data = await res.json();
+    const url = `https://json.ytsodacan.workers.dev/${data.id}`;
+    status.innerHTML = `<div class="pill pok">Created!</div>`;
+    result.style.display = 'flex';
+    result.innerHTML = `<div class="link-row"><div class="link-url">${url}</div><button class="btn btn-p btn-sm" onclick="navigator.clipboard.writeText('${url}')">Copy</button></div>`;
+  } catch (e) { status.innerHTML = 'Error'; }
+  btn.disabled = false;
 }
 
-renderAll(); updatePreview();
+renderAll(); updatePreview(); r();
 </script>
 </body>
 </html>
