@@ -1,280 +1,397 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kettu Theme Maker</title>
-    <style>
-        :root {
-            --bg: #313338;
-            --card: #2b2d31;
-            --text: #dbdee1;
-            --accent: #5865f2;
-            --success: #23a559;
-            --danger: #f23f42;
-            --input: #1e1f22;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kettu Theme Maker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #09090b; --s1: #121217; --s2: #1c1c24; --s3: #272732; --s4: #353545;
+  --b: rgba(255, 255, 255, 0.08); --b2: rgba(255, 255, 255, 0.15);
+  --t: #f0f0f5; --t2: #9494a8; --t3: #65657b;
+  --a: #5865f2; --a2: #7b89ff; --glow: rgba(88, 101, 242, 0.3);
+  --r: 14px; --rs: 8px;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--t); min-height: 100vh; line-height: 1.5; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--s4); border-radius: 9px; }
+::-webkit-scrollbar-thumb:hover { background: var(--t3); }
+::selection { background: var(--a); color: #fff; }
 
-        body {
-            font-family: 'gg sans', 'Segoe UI', Tahoma, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            display: flex;
-            justify-content: center;
-            padding: 20px;
-            margin: 0;
-        }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 40px 20px 80px; }
 
-        .container {
-            width: 100%;
-            max-width: 500px;
-            background: var(--card);
-            padding: 24px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
+/* Header */
+.hdr { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--b); }
+.hdr-logo { width: 50px; height: 50px; border-radius: 14px; background: linear-gradient(135deg, #5865f2, #eb459e); display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; box-shadow: 0 8px 24px var(--glow); }
+.hdr-title { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; letter-spacing: -0.5px; }
+.hdr-sub { font-size: 13px; color: var(--t2); margin-top: 2px; }
+.hdr-chip { margin-left: auto; padding: 6px 12px; background: var(--s2); border: 1px solid var(--b2); border-radius: 99px; font-size: 11px; font-weight: 600; color: var(--t2); letter-spacing: 0.5px; text-transform: uppercase; }
 
-        h1 { font-size: 20px; margin-bottom: 20px; text-align: center; color: #fff; }
+/* Tabs */
+.tabs { display: flex; gap: 4px; background: var(--s1); border: 1px solid var(--b); border-radius: 10px; padding: 4px; margin-bottom: 24px; }
+.tab { flex: 1; padding: 10px 8px; background: none; border: none; border-radius: 8px; font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; color: var(--t2); cursor: pointer; transition: all 0.2s ease; }
+.tab:hover:not(.on) { color: var(--t); background: rgba(255,255,255,0.03); }
+.tab.on { background: var(--s3); color: var(--t); box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+.panel { display: none; animation: fadeIn 0.3s ease; }
+.panel.on { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 
-        .section { margin-bottom: 15px; }
-        label { display: block; font-size: 12px; font-weight: bold; margin-bottom: 8px; text-transform: uppercase; color: #b5bac1; }
+/* Grid */
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+@media(max-width: 800px) { .grid { grid-template-columns: 1fr; } }
 
-        input[type="text"], input[type="url"] {
-            width: 100%;
-            padding: 10px;
-            background: var(--input);
-            border: 1px solid transparent;
-            border-radius: 4px;
-            color: #fff;
-            box-sizing: border-box;
-            transition: border 0.2s;
-        }
+/* Cards */
+.card { background: var(--s1); border: 1px solid var(--b); border-radius: var(--r); overflow: hidden; margin-bottom: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+.card:last-child { margin-bottom: 0; }
+.ch { padding: 14px 18px; border-bottom: 1px solid var(--b); display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.01); }
+.ch-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--a); flex-shrink: 0; box-shadow: 0 0 8px currentColor; }
+.ch-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; }
+.ch-hint { margin-left: auto; font-size: 11px; color: var(--t3); font-family: 'JetBrains Mono', monospace; }
+.cb { padding: 16px 18px; }
 
-        input:focus { border-color: var(--accent); outline: none; }
+/* Form */
+.field { margin-bottom: 14px; }
+.field:last-child { margin-bottom: 0; }
+.lbl { display: block; font-size: 11px; font-weight: 700; color: var(--t3); letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 6px; }
+.inp { width: 100%; background: var(--s2); border: 1px solid var(--b); border-radius: var(--rs); color: var(--t); font-family: 'Inter', sans-serif; font-size: 14px; padding: 10px 12px; outline: none; transition: all 0.2s; appearance: none; }
+.inp:focus { border-color: var(--a); box-shadow: 0 0 0 3px var(--glow); }
+.inp::placeholder { color: var(--t3); }
+.r2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-        .color-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
+/* Color rows */
+.cr { display: flex; flex-direction: column; gap: 8px; }
+.crow { display: flex; align-items: center; gap: 12px; padding: 8px 12px; background: var(--s2); border: 1px solid var(--b); border-radius: var(--rs); transition: border-color 0.2s; }
+.crow:hover { border-color: var(--b2); }
+.swatch { width: 32px; height: 32px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.15); flex-shrink: 0; cursor: pointer; position: relative; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+.swatch input[type="color"] { position: absolute; inset: -8px; width: calc(100% + 16px); height: calc(100% + 16px); opacity: 0; cursor: pointer; border: none; padding: 0; }
+.crow-name { flex: 1; font-size: 13px; font-weight: 500; line-height: 1.3; }
+.crow-inp { width: 86px; background: var(--s3); border: 1px solid transparent; border-radius: 6px; color: var(--t); font-family: 'JetBrains Mono', monospace; font-size: 12px; padding: 4px 8px; outline: none; transition: all 0.2s; text-align: center; }
+.crow-inp:focus { border-color: var(--a); }
 
-        .color-input {
-            display: flex;
-            align-items: center;
-            background: var(--input);
-            padding: 5px 10px;
-            border-radius: 4px;
-        }
+/* Preview */
+.discord-mock { border-radius: var(--rs); overflow: hidden; border: 1px solid rgba(0,0,0,0.6); box-shadow: 0 8px 32px rgba(0,0,0,0.3); font-family: 'Inter', system-ui, sans-serif; position: relative; }
+.dc-bg-layer { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0.4; pointer-events: none; z-index: 0; }
+.dc-layout { display: flex; height: 420px; position: relative; z-index: 1; }
+.dc-left { width: 220px; flex-shrink: 0; display: flex; flex-direction: column; overflow: hidden; }
+.dc-srv { padding: 16px 14px; font-size: 14px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.2); box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+.dc-ch-list { padding: 10px 8px; display: flex; flex-direction: column; gap: 2px; }
+.dc-cat { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 8px 6px 4px; opacity: 0.7; }
+.dc-ch { display: flex; align-items: center; gap: 6px; padding: 6px 8px; border-radius: 4px; font-size: 13px; font-weight: 500; cursor: pointer; }
+.dc-hash { opacity: 0.5; font-size: 16px; font-weight: 400; }
+.dc-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.dc-chat-hdr { padding: 0 16px; height: 48px; display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14px; border-bottom: 1px solid rgba(0,0,0,0.2); box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+.dc-body { flex: 1; padding: 16px; display: flex; flex-direction: column; gap: 14px; overflow: hidden; }
+.dc-msg { display: flex; gap: 12px; }
+.dc-av { width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+.dc-mc { flex: 1; }
+.dc-mauth { font-size: 14px; font-weight: 600; margin-bottom: 2px; display: flex; align-items: baseline; gap: 6px; }
+.dc-time { font-size: 10px; font-weight: 400; opacity: 0.6; }
+.dc-mtext { font-size: 13.5px; line-height: 1.4; font-weight: 400; }
+.dc-inp-wrap { padding: 0 16px 16px; }
+.dc-inp { border-radius: 8px; padding: 12px 14px; font-size: 13.5px; font-weight: 400; }
 
-        input[type="color"] {
-            border: none;
-            width: 30px;
-            height: 30px;
-            background: none;
-            cursor: pointer;
-            margin-right: 10px;
-        }
+/* JSON */
+.json-toolbar { display: flex; align-items: center; gap: 10px; padding: 12px 18px; background: var(--s2); border-bottom: 1px solid var(--b); }
+.json-box { background: var(--bg); padding: 16px 18px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t2); line-height: 1.6; overflow: auto; max-height: 540px; white-space: pre; }
+.jk { color: #a27dff; font-weight: 500; } .js { color: #7ec69e; } .jn { color: #ffd700; } .jb { color: #ff9f0a; } .j0 { color: var(--t3); }
 
-        .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+/* Buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 18px; border-radius: var(--rs); font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; border: none; white-space: nowrap; }
+.btn:active:not(:disabled) { transform: scale(0.97); }
+.btn-p { background: var(--a); color: #fff; box-shadow: 0 4px 16px var(--glow); }
+.btn-p:hover:not(:disabled) { background: var(--a2); box-shadow: 0 6px 20px rgba(123, 137, 255, 0.4); }
+.btn-g { background: var(--s2); color: var(--t); border: 1px solid var(--b2); }
+.btn-g:hover:not(:disabled) { background: var(--s3); border-color: var(--a); }
 
-        .btn {
-            padding: 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            color: white;
-            transition: opacity 0.2s;
-        }
+/* Status & Pills */
+.pload { background: rgba(255,214,10,0.1); color: #ffd60a; border: 1px solid rgba(255,214,10,0.2); }
+.pok { background: rgba(47,209,88,0.12); color: #2fd158; border: 1px solid rgba(47,209,88,0.2); }
+.perr { background: rgba(255,68,66,0.12); color: #ff443a; border: 1px solid rgba(255,68,66,0.2); }
+.pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 99px; font-size: 13px; font-weight: 600; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.blink { animation: blink 1s infinite; }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.info { background: rgba(88,101,242,0.1); border: 1px solid rgba(88,101,242,0.25); border-radius: var(--rs); padding: 12px 16px; font-size: 13px; color: var(--a2); margin-top: 12px; }
+.warn { background: rgba(255,214,10,0.08); border: 1px solid rgba(255,214,10,0.2); border-radius: var(--rs); padding: 12px 16px; font-size: 13px; color: #ffd60a; }
 
-        .btn-p { background-color: var(--accent); }
-        .btn-s { background-color: #4e5058; }
-        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .btn:hover:not(:disabled) { filter: brightness(1.1); }
-
-        /* Status Pills */
-        #gen-status { margin-top: 15px; }
-        .pill {
-            display: flex;
-            align-items: center;
-            padding: 8px 12px;
-            border-radius: 4px;
-            font-size: 14px;
-            font-weight: 500;
-        }
-        .pload { background: rgba(88, 101, 242, 0.1); color: var(--accent); border: 1px solid var(--accent); }
-        .pok { background: rgba(35, 165, 89, 0.1); color: var(--success); border: 1px solid var(--success); }
-        .perr { background: rgba(242, 63, 66, 0.1); color: var(--danger); border: 1px solid var(--danger); }
-
-        .dot { width: 8px; height: 8px; border-radius: 50%; margin-right: 10px; background: currentColor; }
-        .blink { animation: blink 1s infinite; }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-        /* Result Area */
-        #gen-result {
-            margin-top: 15px;
-            display: none;
-            flex-direction: column;
-            gap: 10px;
-            background: var(--input);
-            padding: 15px;
-            border-radius: 4px;
-        }
-        .link-url {
-            font-family: monospace;
-            font-size: 12px;
-            word-break: break-all;
-            background: #000;
-            padding: 8px;
-            border-radius: 4px;
-            margin-bottom: 8px;
-        }
-        .info { font-size: 12px; color: #b5bac1; line-height: 1.4; }
-    </style>
+.pmt { display: flex; gap: 6px; margin-bottom: 12px; background: rgba(0,0,0,0.2); padding: 4px; border-radius: 8px; border: 1px solid var(--b); }
+.pmb { flex: 1; padding: 6px; background: transparent; border: none; border-radius: 6px; font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; color: var(--t2); cursor: pointer; transition: all 0.2s; text-align: center; }
+.pmb.on { background: var(--s3); color: var(--t); }
+</style>
 </head>
 <body>
+<div class="wrap">
 
-<div class="container">
-    <h1>🦊 Kettu Theme Maker</h1>
+<div class="hdr">
+  <div class="hdr-logo">🪄</div>
+  <div>
+    <div class="hdr-title">Kettu Theme Maker</div>
+    <div class="hdr-sub">Discord mobile mod (Kettu / Bunny) generator — Plus Enabled</div>
+  </div>
+  <div class="hdr-chip">R2 Cloud Active</div>
+</div>
 
-    <div class="section">
-        <label>Theme Name</label>
-        <input type="text" id="m-name" placeholder="My Awesome Theme">
-    </div>
+<div class="tabs">
+  <button class="tab on" onclick="go('design',this)">🎨 Design</button>
+  <button class="tab" onclick="go('json',this)">{} Source</button>
+  <button class="tab" onclick="go('export',this)">🔗 Export</button>
+</div>
 
-    <div class="section">
-        <label>Background Image URL (Kettu Plus Only)</label>
-        <input type="url" id="m-bg" placeholder="https://i.imgur.com/example.jpg">
-    </div>
-
-    <div class="color-grid">
-        <div class="section">
-            <label>Primary (Accent)</label>
-            <div class="color-input">
-                <input type="color" id="c-primary" value="#5865f2">
-                <span id="v-primary">#5865F2</span>
+<div id="p-design" class="panel on">
+  <div class="grid">
+    <div>
+      <div class="card">
+        <div class="ch"><div class="ch-dot"></div><div class="ch-title">Theme Details</div></div>
+        <div class="cb">
+          <div class="field"><label class="lbl">Theme Name</label><input class="inp" id="m-name" placeholder="E.g. Cyberpunk Blue" oninput="r()"/></div>
+          <div class="r2">
+            <div class="field"><label class="lbl">Author</label><input class="inp" id="m-author" placeholder="yourname" oninput="r()"/></div>
+            <div class="field"><label class="lbl">Spec</label>
+              <select class="inp" id="m-spec" onchange="r()">
+                <option value="2">v2 (Bunny)</option>
+                <option value="1">v1 (Legacy)</option>
+              </select>
             </div>
+          </div>
+          <div class="field">
+            <label class="lbl">Background Image URL <span style="color:var(--a2)">(Kettu Plus)</span></label>
+            <input class="inp" id="m-bg-url" placeholder="https://i.imgur.com/image.jpg" oninput="r()"/>
+          </div>
         </div>
-        <div class="section">
-            <label>Background</label>
-            <div class="color-input">
-                <input type="color" id="c-bg" value="#313338">
-                <span id="v-bg">#313338</span>
-            </div>
-        </div>
-        <div class="section">
-            <label>Surface</label>
-            <div class="color-input">
-                <input type="color" id="c-surface" value="#2b2d31">
-                <span id="v-surface">#2B2D31</span>
-            </div>
-        </div>
-        <div class="section">
-            <label>Text</label>
-            <div class="color-input">
-                <input type="color" id="c-text" value="#dbdee1">
-                <span id="v-text">#DBDEE1</span>
-            </div>
-        </div>
+      </div>
+
+      <div class="card">
+        <div class="ch"><div class="ch-dot" style="background:#5865f2"></div><div class="ch-title">Surfaces</div></div>
+        <div class="cb"><div class="cr" id="cr-bg"></div></div>
+      </div>
+
+      <div class="card">
+        <div class="ch"><div class="ch-dot" style="background:#b5bac1"></div><div class="ch-title">Typography</div></div>
+        <div class="cb"><div class="cr" id="cr-text"></div></div>
+      </div>
     </div>
 
-    <div class="btn-group">
-        <button id="gen-btn" class="btn btn-p" onclick="genLink()">Generate Cloud Link</button>
-        <button class="btn btn-s" onclick="downloadJson()">Download .json</button>
-        <button class="btn btn-s" onclick="copyRaw()">Copy JSON Code</button>
-    </div>
+    <div>
+      <div class="card">
+        <div class="ch"><div class="ch-dot" style="background:#eb459e"></div><div class="ch-title">Live Preview</div></div>
+        <div class="cb">
+          <div class="pmt">
+            <div class="pmb on" onclick="setMode('dark',this)">Dark</div>
+            <div class="pmb" onclick="setMode('light',this)">Light</div>
+          </div>
+          <div id="discord-preview" class="discord-mock">
+            <div id="pv-bg-layer" class="dc-bg-layer"></div>
+            
+            <div class="dc-layout">
+              <div class="dc-left" id="pv-left">
+                <div class="dc-srv" id="pv-srv">Kettu Plus Server</div>
+                <div class="dc-ch-list">
+                  <div class="dc-cat" id="pv-cat">Text Channels</div>
+                  <div class="dc-ch" id="pv-ch0" style="background:rgba(255,255,255,0.1)"><span class="dc-hash">#</span><span style="color:white">general</span></div>
+                  <div class="dc-ch"><span class="dc-hash">#</span> testing</div>
+                </div>
+              </div>
+              <div class="dc-main">
+                <div class="dc-chat-hdr" id="pv-chdr"># general</div>
+                <div class="dc-body">
+                  <div class="dc-msg">
+                    <div class="dc-av" id="pv-av1">🦊</div>
+                    <div class="dc-mc">
+                      <div class="dc-mauth" id="pv-a1">Developer</div>
+                      <div class="dc-mtext" id="pv-m1">Welcome to Kettu Plus.</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="dc-inp-wrap">
+                  <div class="dc-inp" id="pv-inp">Message #general</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    <div id="gen-status"></div>
-
-    <div id="gen-result">
-        <div class="link-url" id="res-url"></div>
-        <button class="btn btn-p" id="copy-link-btn" onclick="copyLink()">Copy URL</button>
-        <div class="info">This link expires in <b>5 minutes</b>. Paste it into the Kettu app settings immediately!</div>
+      <div class="card">
+        <div class="ch"><div class="ch-dot" style="background:#57f287"></div><div class="ch-title">Interaction</div></div>
+        <div class="cb"><div class="cr" id="cr-int"></div></div>
+      </div>
     </div>
+  </div>
+</div>
+
+<div id="p-json" class="panel">
+  <div class="card">
+    <div class="json-toolbar">
+      <span style="font-weight:700">Source Code</span>
+      <button class="btn btn-g btn-sm" style="margin-left:auto" onclick="copyJSON()">Copy</button>
+    </div>
+    <div class="json-box" id="json-out"></div>
+  </div>
+</div>
+
+<div id="p-export" class="panel">
+  <div class="card">
+    <div class="ch"><div class="ch-dot" style="background:#a27dff"></div><div class="ch-title">Finalize</div></div>
+    <div class="cb">
+      <div style="display:flex; gap:12px; margin-bottom:20px;">
+        <button class="btn btn-p" id="gen-btn" onclick="genLink()">☁ Generate Cloud Link</button>
+        <button class="btn btn-g" onclick="dlJSON()">⬇ Download .json</button>
+      </div>
+      <div id="gen-status"></div>
+      <div id="gen-result" style="display:none; margin-top:12px;"></div>
+    </div>
+  </div>
+</div>
+
 </div>
 
 <script>
-    // Update text labels when colors change
-    document.querySelectorAll('input[type="color"]').forEach(input => {
-        input.oninput = () => {
-            document.getElementById('v-' + input.id.split('-')[1]).innerText = input.value.toUpperCase();
-        };
-    });
+const GROUPS = {
+  bg: [
+    { id: 'bg_pri', name: 'Background Primary', dark: '#313338', light: '#ffffff', sem: ['BACKGROUND_PRIMARY', 'CHAT_BACKGROUND'] },
+    { id: 'bg_sec', name: 'Sidebar / Panels', dark: '#2b2d31', light: '#f2f3f5', sem: ['BACKGROUND_SECONDARY'] },
+    { id: 'bg_inp', name: 'Text Input', dark: '#383a40', light: '#ebedef', sem: ['INPUT_BACKGROUND'] }
+  ],
+  text: [
+    { id: 'tx_norm', name: 'Normal Text', dark: '#dbdee1', light: '#2e3338', sem: ['TEXT_NORMAL'] },
+    { id: 'tx_hdr1', name: 'Header Text', dark: '#f2f3f5', light: '#060607', sem: ['HEADER_PRIMARY'] }
+  ],
+  int: [
+    { id: 'br_main', name: 'Brand Accent', dark: '#5865f2', light: '#5865f2', sem: ['BACKGROUND_ACCENT'], raw: { BRAND_500: '', BLUE_400: '' } }
+  ]
+};
 
-    // The core JSON Generator
-    function js() {
-        return JSON.stringify({
-            name: document.getElementById('m-name').value || "Unnamed Theme",
-            author: "Kettu Maker",
-            unsafe_colors: {
-                brand: document.getElementById('c-primary').value,
-                background_main: document.getElementById('c-bg').value,
-                background_floating: document.getElementById('c-surface').value,
-                text_normal: document.getElementById('c-text').value
-            },
-            // Custom data for your plugin
-            kettu_plus: {
-                bg_url: document.getElementById('m-bg').value || null,
-                bg_opacity: 0.4,
-                blur: 5
-            }
-        }, null, 2);
+const ALL = Object.values(GROUPS).flat();
+const vals = {};
+ALL.forEach(c => { vals[c.id] = { dark: c.dark, light: c.light }; });
+let mode = 'dark';
+
+function renderGroup(gid, elid) {
+  const el = document.getElementById(elid);
+  el.innerHTML = GROUPS[gid].map(c => `
+    <div class="crow"> 
+      <div class="swatch" id="sw-${c.id}" style="background:${vals[c.id][mode]}"> 
+        <input type="color" value="${vals[c.id][mode]}" oninput="sc('${c.id}',this.value)" /> 
+      </div> 
+      <div class="crow-name">${c.name}</div> 
+      <input class="crow-inp" id="ci-${c.id}" value="${vals[c.id][mode]}" maxlength="7" oninput="sc('${c.id}',this.value,true)" /> 
+    </div>`).join('');
+}
+
+function renderAll() { renderGroup('bg', 'cr-bg'); renderGroup('text', 'cr-text'); renderGroup('int', 'cr-int'); }
+
+function sc(id, hex, fromText=false) {
+  if (hex.length === 7) {
+    vals[id][mode] = hex;
+    const sw = document.getElementById('sw-'+id); if(sw) sw.style.background = hex;
+    if(!fromText) { document.getElementById('ci-'+id).value = hex; }
+    updatePreview(); r();
+  }
+}
+
+function build() {
+  const semanticColors = {};
+  const rawColors = {};
+  ALL.forEach(c => {
+    c.sem?.forEach(k => { semanticColors[k] = [vals[c.id].dark, vals[c.id].light]; });
+    if(c.raw) Object.keys(c.raw).forEach(k => { rawColors[k] = vals[c.id].dark; });
+  });
+
+  return {
+    name: document.getElementById('m-name').value || "Unnamed Theme",
+    authors: [{ name: document.getElementById('m-author').value || "Unknown" }],
+    spec: parseInt(document.getElementById('m-spec').value),
+    semanticColors,
+    rawColors,
+    // KETTU PLUS CUSTOM DATA
+    kettu_plus: {
+      bg_url: document.getElementById('m-bg-url').value || null,
+      bg_opacity: 0.4,
+      blur: 10
     }
+  };
+}
 
-    // Upload to Cloudflare Worker
-    async function genLink() {
-        const btn = document.getElementById('gen-btn');
-        const status = document.getElementById('gen-status');
-        const result = document.getElementById('gen-result');
-        const workerUrl = "https://json.ytsodacan.workers.dev";
+function js() { return JSON.stringify(build(), null, 2); }
 
-        btn.disabled = true;
-        result.style.display = 'none';
-        status.innerHTML = `<div class="pill pload"><div class="dot blink"></div>Syncing to R2 Bucket...</div>`;
+function updatePreview() {
+  const g = id => vals[id][mode];
+  const bgImg = document.getElementById('m-bg-url').value;
+  
+  const pvBg = document.getElementById('pv-bg-layer');
+  if(bgImg) {
+    pvBg.style.backgroundImage = `url('${bgImg}')`;
+    pvBg.style.display = 'block';
+  } else {
+    pvBg.style.display = 'none';
+  }
 
-        try {
-            const res = await fetch(workerUrl, {
-                method: "POST",
-                body: js()
-            });
+  document.getElementById('discord-preview').style.background = g('bg_pri');
+  document.getElementById('pv-left').style.background = g('bg_sec');
+  document.getElementById('pv-srv').style.color = g('tx_hdr1');
+  document.getElementById('pv-chdr').style.color = g('tx_hdr1');
+  document.getElementById('pv-m1').style.color = g('tx_norm');
+  document.getElementById('pv-a1').style.color = g('br_main');
+  document.getElementById('pv-av1').style.background = g('br_main');
+  document.getElementById('pv-inp').style.background = g('bg_inp');
+}
 
-            if (!res.ok) throw new Error('Worker rejected upload');
+function go(name, btn) {
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+  document.getElementById('p-'+name).classList.add('on');
+  btn.classList.add('on');
+}
 
-            const data = await res.json();
-            const finalUrl = `${workerUrl}/${data.id}`;
+function r() { document.getElementById('json-out').innerText = js(); updatePreview(); }
 
-            status.innerHTML = `<div class="pill pok"><div class="dot"></div>Link Active!</div>`;
-            document.getElementById('res-url').innerText = finalUrl;
-            result.style.display = 'flex';
-        } catch (e) {
-            status.innerHTML = `<div class="pill perr"><div class="dot"></div>Cloud Error (405/500)</div>`;
-        } finally {
-            btn.disabled = false;
-        }
-    }
+function setMode(m, btn) {
+  mode = m;
+  document.querySelectorAll('.pmb').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderAll(); updatePreview();
+}
 
-    function downloadJson() {
-        const blob = new Blob([js()], { type: "application/json" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = (document.getElementById('m-name').value || "theme") + ".json";
-        a.click();
-    }
+// EXPORT FUNCTIONS
+function copyJSON() { navigator.clipboard.writeText(js()); alert("JSON Copied!"); }
 
-    async function copyRaw() {
-        await navigator.clipboard.writeText(js());
-        alert("JSON Code copied to clipboard!");
-    }
+function dlJSON() {
+  const blob = new Blob([js()], {type: 'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = "theme.json"; a.click();
+}
 
-    async function copyLink() {
-        const url = document.getElementById('res-url').innerText;
-        await navigator.clipboard.writeText(url);
-        const btn = document.getElementById('copy-link-btn');
-        btn.innerText = "Copied!";
-        setTimeout(() => btn.innerText = "Copy URL", 2000);
-    }
+async function genLink() {
+  const status = document.getElementById('gen-status');
+  const result = document.getElementById('gen-result');
+  const workerUrl = "https://json.ytsodacan.workers.dev";
+
+  status.innerHTML = `<div class="pill pload"><div class="dot blink"></div>Syncing to R2...</div>`;
+  
+  try {
+    const response = await fetch(workerUrl, { method: "POST", body: js() });
+    const data = await response.json();
+    const finalUrl = `${workerUrl}/${data.id}`;
+
+    status.innerHTML = `<div class="pill pok"><div class="dot"></div>Link Created</div>`;
+    result.style.display = 'block';
+    result.innerHTML = `
+      <div class="link-row">
+        <div class="link-url">${finalUrl}</div>
+        <button class="btn btn-p btn-sm" onclick="navigator.clipboard.writeText('${finalUrl}')">Copy</button>
+      </div>
+      <div class="info">Expires in 5 minutes!</div>`;
+  } catch (e) {
+    status.innerHTML = `<div class="pill perr"><div class="dot"></div>Cloud Error</div>`;
+  }
+}
+
+renderAll(); updatePreview();
 </script>
-
 </body>
 </html>
