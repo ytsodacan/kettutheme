@@ -33,7 +33,7 @@ https://github.com/ytsodacan/kettutheme/raw/refs/heads/main/source.json
 ![Step 11a](https://github.com/ytsodacan/kettutheme/blob/main/IMG_2909.png?raw=true)
 ![Step 11b](https://github.com/ytsodacan/kettutheme/blob/main/IMG_2910.png?raw=true)
 
-12. Press **Radium** and then press **Get** next to the app. 
+12. Press **Radium** and then press **Get** next to the app, wait for it to fully download. 
 ![Step 12a](https://github.com/ytsodacan/kettutheme/blob/main/IMG_2911.png?raw=true)
 ![Step 12b](https://github.com/ytsodacan/kettutheme/blob/main/IMG_2912.png?raw=true)
 
