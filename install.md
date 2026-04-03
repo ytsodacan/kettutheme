@@ -28,7 +28,7 @@
 
 11. Once you are in the app, press the **Add Source** button. Paste in this link and press save:
 ```
-[https://github.com/ytsodacan/kettutheme/raw/refs/heads/main/source.json](https://github.com/ytsodacan/kettutheme/raw/refs/heads/main/source.json)
+https://github.com/ytsodacan/kettutheme/raw/refs/heads/main/source.json
 ```
 ![Step 11a](https://github.com/ytsodacan/kettutheme/blob/main/IMG_2909.png?raw=true)
 ![Step 11b](https://github.com/ytsodacan/kettutheme/blob/main/IMG_2910.png?raw=true)
