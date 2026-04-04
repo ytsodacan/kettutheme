@@ -3,8 +3,8 @@
   "identifier": "com.AgainstGravity.RecRoom",
   "subtitle": "Radium Builds",
   "description": "Custom builds for Radium iOS.",
-  "iconURL": "https://play-lh.googleusercontent.com/UuVPdJLY-dQwM-k2H5IZXlL0CBUVauVOHblIMeDqIARlVBTSNGRHIAjWmJtbE25gUQ=s188",
-  "headerURL": "https://play-lh.googleusercontent.com/UuVPdJLY-dQwM-k2H5IZXlL0CBUVauVOHblIMeDqIARlVBTSNGRHIAjWmJtbE25gUQ=s188",
+  "iconURL": "https://github.com/ytsodacan/kettutheme/blob/main/icon.png?raw=1",
+  "headerURL": "https://github.com/ytsodacan/kettutheme/blob/main/icon.png?raw=1",
   "apps": [
     {
       "name": "Radium",
@@ -13,9 +13,9 @@
       "version": "2025.10.27",
       "versionDate": "2025-10-27T00:00:00Z",
       "versionDescription": "Build Radium_iOS_20251027_iCbQFJ",
-      "downloadURL": "https://radium-builds.stuartt.ca/ios/Radium_iOS_20251027_iCbQFJ.ipa",
+      "downloadURL": "https://json.ytsodacan.workers.dev/radiumipa",
       "localizedDescription": "Radium iOS build from the official builds server.",
-      "iconURL": "https://play-lh.googleusercontent.com/UuVPdJLY-dQwM-k2H5IZXlL0CBUVauVOHblIMeDqIARlVBTSNGRHIAjWmJtbE25gUQ=s188",
+      "iconURL": "https://github.com/ytsodacan/kettutheme/blob/main/icon.png?raw=1",
       "size": 0
     }
   ],
